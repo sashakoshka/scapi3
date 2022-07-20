@@ -61,7 +61,11 @@ func (request Request) Send () (
 	httpRequest.Header.Set("User-Agent", "")
 
 	// perform request
-	response, err = request.Client.Do(httpRequest)
+	if request.Client == nil {
+		response, err = http.DefaultClient.Do(httpRequest)
+	} else {
+		response, err = request.Client.Do(httpRequest)
+	}
 	defer response.Body.Close()
 	
 	// read response body
