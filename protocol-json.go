@@ -248,3 +248,22 @@ type StudioActivityResponseItem struct {
 	Type            string `json:"type"`
 	ActorUsername   string `json:"actor_username"`
 }
+
+type StudioCommentsResponse []CommentResponse
+
+type CommentResponse struct {
+	ID               uint64 `json:"id"`
+	ParentID         uint64 `json:"parent_id"`
+	CommenteeID      uint64 `json:"commentee_id"`
+	Content          string `json:"content"`
+	DateTimeCreated  string `json:"datetime_created"`
+	DateTimeModified string `json:"datetime_modified"`
+	Visibility       string `json:"visibility"`
+	Author struct {
+		ID          uint64 `json:"id"`
+		Username    string `json:"username"`
+		ScratchTeam bool   `json:"scratchteam"`
+		Image       string `json:"image"`
+	} `json:"author"`
+	ReplyCount int `json:"reply_count"`
+}

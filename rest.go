@@ -112,3 +112,10 @@ func GetStudioActivity (
 	err = RestRequest(&structure, url)
 	return
 }
+
+/* GetStudioComments returns a list of all comments on a studio.
+ */
+func GetStudioComments (id uint64) (structure StudioCommentsResponse, err error) {
+	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/comments")
+	return
+}
