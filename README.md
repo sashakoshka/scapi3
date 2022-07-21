@@ -8,9 +8,9 @@ even less callback hell or whatever.
 
 This is still in progress.
 
-# API coverage
+## API coverage
 
-# User essions
+### User essions
 
 - [x] User session login
 - [ ] User session verify
@@ -22,7 +22,7 @@ This is still in progress.
 - [ ] Cloud session set variable
 - [ ] Cloud session variable change event
 
-# Rest API
+### Rest API
 
 - [x] API GET `/health`
 - [x] API GET `/news`
