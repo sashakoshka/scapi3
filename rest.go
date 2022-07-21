@@ -424,3 +424,34 @@ func GetUserProjectCommentReplies (
 		limit, offset)
 	return
 }
+
+/* GetUserStudiosCurate returns the studios that the user is a curator of.
+ */
+func GetUserStudiosCurate (
+	name   string,
+	limit  int,
+	offset int,
+) (
+	structure []StudioResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/studios/curate",
+		limit, offset)
+	return
+}
+
+/* GetAccountsCheckUsername checks whether a new account with the specified
+ * username can be created (that is, it isn't taken).
+ */
+func GetAccountsCheckUsername (
+	name string,
+) (
+	structure AccountsCheckUsernameResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/accounts/checkusername/" + name,
+		0, 0)
+	return
+}

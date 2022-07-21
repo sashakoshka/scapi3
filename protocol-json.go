@@ -80,3 +80,11 @@ type CommentStatusResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 }
+
+/* AccountsCheckUsernameResponse holds information about the availibility of a
+ * username.
+ */
+type AccountsCheckUsernameResponse struct {
+	Username string `json:"username"`
+	Msg      string `json:"msg"`
+}
