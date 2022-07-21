@@ -91,3 +91,24 @@ func GetStudioCurators (id uint64) (structure StudioCuratorsResponse, err error)
 	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/curators")
 	return
 }
+
+/* GetStudioActivity returns a list of all curators of a studio. If since is
+ * blank, a date limit is not sent.
+ */
+func GetStudioActivity (
+	id uint64,
+	// TODO: make this a golang time
+	since string,
+) (
+	structure StudioActivityResponse,
+	err error,
+) {
+	url := "/studios/" + strconv.FormatUint(id, 10) + "/activity"
+
+	if since != "" {
+		url += "?dateLimit=" + since
+	}
+	
+	err = RestRequest(&structure, url)
+	return
+}

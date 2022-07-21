@@ -232,3 +232,19 @@ type StudioManagersResponse []UserResponse
 /* StudioCuratorsResponse represents a list of all curators of a studio.
  */
 type StudioCuratorsResponse []UserResponse
+
+/* StudioActivityResponse represents a list of recent activity in a studio.
+ */
+type StudioActivityResponse []StudioActivityResponseItem
+
+/* StudioActivityResponseItem represents a single activity in a studio.
+ */
+type StudioActivityResponseItem struct {
+	DateTimeCreated string `json:"datetime_created"`
+	ID              string `json:"id"`
+	ActorID         uint64 `json:"actor_id"`
+	ProjectID       uint64 `json:"project_id"`
+	ProjectTitle    string `json:"project_title"`
+	Type            string `json:"type"`
+	ActorUsername   string `json:"actor_username"`
+}

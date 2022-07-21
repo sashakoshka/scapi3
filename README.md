@@ -35,7 +35,7 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [X] API GET `/studios/<studio_id>/projects`
 - [X] API GET `/studios/<studio_id>/managers`
 - [X] API GET `/studios/<studio_id>/curators`
-- [ ] API GET `/studios/<studio_id>/activity?dateLimit=<date>`
+- [X] API GET `/studios/<studio_id>/activity?dateLimit=<date>`
 - [ ] API GET `/studios/<studio_id>/comments`
 - [ ] API GET `/studios/<studio_id>/comments/<comment_id>`
 - [ ] API GET `/studios/<studio_id>/comments/<comment_id>/replies`
