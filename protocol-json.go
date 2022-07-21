@@ -49,3 +49,56 @@ func UnmarshalLoginResponse (
 	structure = array[0]
 	return
 }
+
+/* HealthResponse represents a site health response from the API.
+ */
+type HealthResponse struct {
+	Version string      `json:"version"`
+	Uptime  int         `json:"uptime"`
+	Load    []float64   `json:"load"`
+	SQL struct {
+		Main                HealthResponseSQL `json:"main"`
+		ProjectComments     HealthResponseSQL `json:"project_comments"`
+		GalleryComments     HealthResponseSQL `json:"gallery_comments"`
+		UserprofileComments HealthResponseSQL `json:"userprofile_comments"`
+		Timestamp           uint64            `json:"timestamp"`
+	} `json:"sql"`
+	Cache struct {
+		Connected bool `json:"connected"`
+		Ready     bool `json:"ready"`
+	} `json:"cache"`
+}
+
+/* HealthResponseSQL represents an database in the site SQL health data.
+ */
+type HealthResponseSQL struct {
+	Primary HealthResponseSQLStatistic `json:"primary"`
+	Replica HealthResponseSQLStatistic `json:"replica"`
+}
+
+/* HealthResponseSQL represents a database's health data in the site SQL
+ * health data.
+ */
+type HealthResponseSQLStatistic struct {
+	SSL             bool `json:"ssl"`
+	Destroyed       bool `json:"destroyed"`
+	Min             int  `json:"min"`
+	Max             int  `json:"max"`
+	NumUsed         int  `json:"numUsed"`
+	NumFree         int  `json:"numFree"`
+	PendingAcquires int  `json:"pendingAcquires"`
+	PendingCreates  int  `json:"pendingCreates"`
+}
+
+/* UnmarshalHealthResponse takes in a JSON encoded byte slice and returns
+ * unmarshaled site health data.
+ */
+func UnmarshalHealthResponse (
+	data []byte,
+) (
+	structure HealthResponse,
+	err       error,
+) {
+	err = json.Unmarshal(data, &structure)
+	return
+}
