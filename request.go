@@ -50,6 +50,7 @@ func (request Request) Send () (
 		method,
 		"https://" + request.Hostname + request.Path,
 		requestBody)
+	if err != nil { return }
 
 	// set request headers
 	for key, value := range request.Headers {
