@@ -46,11 +46,11 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [X] API GET `/users/<username>/following`
 - [X] API GET `/users/<username>/messages/count`
 - [X] API GET `/users/<username>/projects`
-- [ ] API GET `/users/<username>/projects/<project_id>`
-- [ ] API GET `/users/<username>/projects/<project_id>/studios`
-- [ ] API GET `/users/<username>/projects/<project_id>/comments`
-- [ ] API GET `/users/<username>/projects/<project_id>/comments/<comment_id>`
-- [ ] API GET `/users/<username>/projects/<project_id>/comments/<comment_id>/replies`
+- [X] API GET `/users/<username>/projects/<project_id>`
+- [X] API GET `/users/<username>/projects/<project_id>/studios`
+- [X] API GET `/users/<username>/projects/<project_id>/comments`
+- [X] API GET `/users/<username>/projects/<project_id>/comments/<comment_id>`
+- [X] API GET `/users/<username>/projects/<project_id>/comments/<comment_id>/replies`
 - [ ] API GET `/users/<username>/studios/curate`
 - [ ] API GET `/accounts/checkusername/<username>`
 - [ ] API GET `/explore/projects?q=<query>&mode=<mode>&language=<language_code>`

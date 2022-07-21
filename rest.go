@@ -312,3 +312,97 @@ func GetUserProjects (
 		limit, offset, "")
 	return
 }
+
+/* GetUserProject returns a specific project made by a user.
+ */
+func GetUserProject (
+	name string,
+	id   uint64,
+) (
+	structure ProjectResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/projects/" +
+		strconv.FormatUint(id, 10),
+		0, 0, "")
+	return
+}
+
+/* GetUserProject returns a specific project made by a user.
+ */
+func GetUserProjectStudios (
+	name   string,
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure []StudioResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/projects/" +
+		strconv.FormatUint(id, 10) + "/studios",
+		limit, offset, "")
+	return
+}
+
+/* GetUserProjectComments returns a list of all comments on a user's project.
+ */
+func GetUserProjectComments (
+	name   string,
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure []CommentResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/projects/" +
+		strconv.FormatUint(id, 10) + "/comments",
+		limit, offset, "")
+	return
+}
+
+/* GetUserProjectComment returns information about a specific comment on a
+ * user's project.
+ */
+func GetUserProjectComment (
+	name      string,
+	id        uint64,
+	commentid uint64,
+	limit     int,
+	offset    int,
+) (
+	structure CommentResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/projects/" +
+		strconv.FormatUint(id, 10) + "/comments/" +
+		strconv.FormatUint(commentid, 10),
+		limit, offset, "")
+	return
+}
+
+/* GetUserProjectCommentReplies returns replies to a specific comment on a
+ * user's project.
+ */
+func GetUserProjectCommentReplies (
+	name      string,
+	id        uint64,
+	commentid uint64,
+	limit     int,
+	offset    int,
+) (
+	structure []CommentResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/projects/" +
+		strconv.FormatUint(id, 10) + "/comments/" +
+		strconv.FormatUint(commentid, 10) + "/replies",
+		limit, offset, "")
+	return
+}
