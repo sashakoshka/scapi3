@@ -10,6 +10,7 @@ type Method int
 const (
 	MethodGet = iota
 	MethodPost
+	MethodOptions
 )
 
 /* Request represents an HTTP request made to the Scratch API.
@@ -32,11 +33,15 @@ func (request Request) Send () (
 ) {
 	// create request
 	var method string
+	
 	if request.Method == MethodGet {
 		method = "GET"
-	} else {
+	} else if request.Method == MethodPost {
 		method = "POST"
+	} else {
+		method = "OPTIONS"
 	}
+	
 	if request.Hostname == "" {
 		request.Hostname = "scratch.mit.edu"
 	}

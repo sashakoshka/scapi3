@@ -1,8 +1,9 @@
 package scapi3
 
 import "fmt"
-// import "net/url"
+import "strconv"
 import "net/http"
+import "encoding/json"
 import "net/http/cookiejar"
 
 /* UserSession represents a login session. It is used to access user-specific
@@ -89,9 +90,12 @@ func (session *UserSession) Login () (err error) {
 }
 
 /* Verify checks whether a session is valid. It returns whether or not it is
- * valid, and sets the session's valid flag accordingly.
+ * valid, and sets the session's valid flag accordingly. If the session is not
+ * loaded, this function does nothing.
  */
 func (session *UserSession) Verify () (valid bool) {
+	if !session.loaded { return }
+	
 	// TODO: there is a high chance this doesn't work. Find out if it does
 	// work, and if it doesn't, create a better solution.
 	response, _, err := Request {
@@ -101,3 +105,68 @@ func (session *UserSession) Verify () (valid bool) {
 	session.valid = valid
 	return
 } 
+
+func (session *UserSession) CommentOnProject (
+	project uint64,
+	parent  uint64,
+	tagging uint64,
+	content string,
+) (
+	err error,
+) {
+	if !session.loaded { return }
+	return session.comment (
+		strconv.FormatUint(project, 10),
+		"project", parent, tagging, content)
+}
+
+func (session *UserSession) comment (
+	id      string,
+	where   string,
+	parent  uint64,
+	tagging uint64,
+	content string,
+) (
+	err error,
+) {	
+	response, body, err := Request {
+		Hostname: "api.scratch.mit.edu",
+		Path:     "/proxy/comments/" + where + "/" + id,
+		Method:   MethodPost,
+
+		Body: ProtocolCommentRequest {
+			Content:     content,
+			ParentID:    parent,
+			CommenteeID: tagging,
+		},
+		
+		Headers: map[string] string {
+			"X-Requested-With": "XMLHttpRequest",
+			"Content-Type": "application/json",
+			"Origin": "https://scratch.mit.edu",
+		},
+
+		Client: &session.client,
+	}.Send()
+
+	if err != nil {
+		return fmt.Errorf (
+			"cannot comment (%s): %v",
+			response.Status, err)
+	}
+
+	commentData := ProtocolCommentResponse { }
+	err = json.Unmarshal(body, &commentData)
+	if err != nil {
+		return fmt.Errorf (
+			"cannot parse server response (%s): %v",
+			response.Status, err)
+	}
+
+	if response.StatusCode != http.StatusOK {
+		return fmt.Errorf (
+			"cannot comment (%s): %s: %s",
+			response.Status, commentData.Code, commentData.Message)
+	}
+	return
+}

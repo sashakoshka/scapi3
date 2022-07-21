@@ -24,6 +24,37 @@ func (structure ProtocolLoginRequest) Marshal () (data []byte) {
 	return
 }
 
+/* ProtocolCommentRequest represents a comment request.
+ */
+type ProtocolCommentRequest struct {
+	Content     string
+	ParentID    uint64
+	CommenteeID uint64
+}
+
+/* Marshal converts the comment request body into a JSON encoded byte slice.
+ */
+func (structure ProtocolCommentRequest) Marshal () (data []byte) {
+	realStructure := map[string] any {
+		"content":      structure.Content,
+		"parent_id":    structure.ParentID,
+		"commentee_id": structure.CommenteeID,
+	}
+
+	if structure.ParentID == 0 {
+		realStructure["parent_id"] = ""
+	}
+
+	if structure.CommenteeID == 0 {
+		realStructure["commentee_id"] = ""
+	}
+
+	data, _ = json.Marshal(realStructure)
+	return
+}
+
+/* ProtocolLoginResponse represents a login response.
+ */
 type ProtocolLoginResponse struct {
 	Username string   `json:"username"`
 	Token    string   `json:"token"`
@@ -48,6 +79,13 @@ func UnmarshalLoginResponse (
 	if err != nil { return }
 	structure = array[0]
 	return
+}
+
+/* ProtocolCommentResponse represents a response to a comment request.
+ */
+type ProtocolCommentResponse struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
 
 /* HealthResponse contains data about the health of the Scratch website.
