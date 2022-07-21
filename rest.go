@@ -87,3 +87,23 @@ func GetProject (id uint64) (structure ProjectResponse, err error) {
 	if err != nil { return }
 	return
 }
+
+/* GetProjectRemixes returns the remixes of a project.
+ */
+func GetProjectRemixes (id uint64) (structure RemixesResponse, err error) {
+	response, body, err := Request {
+		Path:     "/projects/" + strconv.FormatUint(id, 10) + "/remixes",
+		Hostname: "api.scratch.mit.edu",
+	}.Send()
+	if err != nil { return }
+	if response.StatusCode != http.StatusOK {
+		err = fmt.Errorf (
+			"cannot get project remixes (%i)",
+			response.StatusCode)
+		return
+	}
+
+	err = json.Unmarshal(body, &structure)
+	if err != nil { return }
+	return
+}

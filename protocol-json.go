@@ -174,3 +174,7 @@ type UserResponse struct {
 		Country string `json:"country"`
 	} `json:"profile"`
 }
+
+/* RemixesResponse holds information about a project's remixes.
+ */
+type RemixesResponse []ProjectResponse

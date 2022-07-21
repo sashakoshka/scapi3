@@ -30,7 +30,7 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [x] API GET `/news`
 - [X] API GET `/projects/count/all` (This is broken on Scratch's end)
 - [X] API GET `/projects/<project_id>`
-- [ ] API GET `/projects/<project_id>/remixes`
+- [X] API GET `/projects/<project_id>/remixes`
 - [ ] API GET `/studios/<studio_id>`
 - [ ] API GET `/studios/<studio_id>/projects`
 - [ ] API GET `/studios/<studio_id>/managers`
