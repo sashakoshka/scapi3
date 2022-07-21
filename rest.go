@@ -59,7 +59,7 @@ func GetProject (id uint64) (structure ProjectResponse, err error) {
 
 /* GetProjectRemixes returns the remixes of a project.
  */
-func GetProjectRemixes (id uint64) (structure RemixesResponse, err error) {
+func GetProjectRemixes (id uint64) (structure []ProjectResponse, err error) {
 	err = RestRequest (
 		&structure,
 		"/projects/" + strconv.FormatUint(id, 10) + "/remixes")
@@ -84,7 +84,7 @@ func GetStudioProjects (id uint64) (structure StudioProjectsResponse, err error)
 
 /* GetStudioManagers returns a list of all managers of a studio.
  */
-func GetStudioManagers (id uint64) (structure StudioManagersResponse, err error) {
+func GetStudioManagers (id uint64) (structure []UserResponse, err error) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/managers")
@@ -93,7 +93,7 @@ func GetStudioManagers (id uint64) (structure StudioManagersResponse, err error)
 
 /* GetStudioCurators returns a list of all curators of a studio.
  */
-func GetStudioCurators (id uint64) (structure StudioCuratorsResponse, err error) {
+func GetStudioCurators (id uint64) (structure []UserResponse, err error) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/curators")
@@ -123,7 +123,7 @@ func GetStudioActivity (
 
 /* GetStudioComments returns a list of all comments on a studio.
  */
-func GetStudioComments (id uint64) (structure CommentsResponse, err error) {
+func GetStudioComments (id uint64) (structure []CommentResponse, err error) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/comments")
@@ -142,7 +142,7 @@ func GetStudioComment (id, commentID uint64) (structure CommentResponse, err err
 
 /* GetStudioCommentReplies returns the replies for a comment on a studio.
  */
-func GetStudioCommentReplies (id, commentID uint64) (structure CommentsResponse, err error) {
+func GetStudioCommentReplies (id, commentID uint64) (structure []CommentResponse, err error) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) +
@@ -166,14 +166,14 @@ func GetUser (name string) (structure UserResponse, err error) {
 
 /* GetUserFavorites returns all projects favorited by a user.
  */
-func GetUserFavorites (name string) (structure UserFavoritesResponse, err error) {
+func GetUserFavorites (name string) (structure []ProjectResponse, err error) {
 	err = RestRequest(&structure, "/users/" + name + "/favorites")
 	return
 }
 
 /* GetUserFollowers returns all followers of a user.
  */
-func GetUserFollowers (name string) (structure UserFollowersResponse, err error) {
+func GetUserFollowers (name string) (structure []UserResponse, err error) {
 	err = RestRequest(&structure, "/users/" + name + "/followers")
 	return
 }

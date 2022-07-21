@@ -101,10 +101,6 @@ type ProjectResponse struct {
 	ProjectToken string `json:"project_token"`
 }
 
-/* RemixesResponse holds information about a project's remixes.
- */
-type RemixesResponse []ProjectResponse
-
 /* StudioResponse holds information about a studio. 
  */
 type StudioResponse struct {
@@ -129,30 +125,6 @@ type StudioResponse struct {
 	} `json:"stats"`
 }
 
-/* UserResponse holds information about a user.
- */
-type UserResponse struct {
-	ID          uint64 `json:"id"`
-	Username    string `json:"username"`
-	ScratchTeam bool   `json:"scratchteam"`
-	History struct {
-		Joined string `json:"joined"`
-	} `json:"history"`
-	Profile struct {
-		ID uint64 `json:"id"`
-		Images struct {
-			Size90px string `json:"90x90"`
-			Size60px string `json:"60x60"`
-			Size55px string `json:"55x55"`
-			Size50px string `json:"50x50"`
-			Size32px string `json:"32x32"`
-		} `json:"images"`
-		Status  string `json:"status"`
-		Bio     string `json:"bio"`
-		Country string `json:"country"`
-	} `json:"profile"`
-}
-
 /* StudioProjectsResponse represents a list of projects inside of a studio.
  */
 type StudioProjectsResponse []StudioProjectsResponseItem
@@ -175,14 +147,6 @@ type StudioProjectsResponseItem struct {
 	ActorID uint64 `json:"actor_id"`
 }
 
-/* StudioManagersResponse represents a list of all managers of a studio.
- */
-type StudioManagersResponse []UserResponse
-
-/* StudioCuratorsResponse represents a list of all curators of a studio.
- */
-type StudioCuratorsResponse []UserResponse
-
 /* StudioActivityResponse represents a list of recent activity in a studio.
  */
 type StudioActivityResponse []StudioActivityResponseItem
@@ -198,10 +162,6 @@ type StudioActivityResponseItem struct {
 	Type            string `json:"type"`
 	ActorUsername   string `json:"actor_username"`
 }
-
-/* CommentsResponse represents a list of comments
- */
-type CommentsResponse []CommentResponse
 
 /* CommentResponse represents information about a single comment
  */
@@ -246,10 +206,26 @@ type FeaturedResponseItem struct {
 	LoveCount    int    `json:"love_count"`
 }
 
-/* UserFavoritesResponse contains all projects a user has favorited.
+/* UserResponse holds information about a user.
  */
-type UserFavoritesResponse []ProjectResponse
-
-/* UserFollowersResponse contains all followers of a user.
- */
-type UserFollowersResponse []UserResponse
+type UserResponse struct {
+	ID          uint64 `json:"id"`
+	Username    string `json:"username"`
+	ScratchTeam bool   `json:"scratchteam"`
+	History struct {
+		Joined string `json:"joined"`
+	} `json:"history"`
+	Profile struct {
+		ID uint64 `json:"id"`
+		Images struct {
+			Size90px string `json:"90x90"`
+			Size60px string `json:"60x60"`
+			Size55px string `json:"55x55"`
+			Size50px string `json:"50x50"`
+			Size32px string `json:"32x32"`
+		} `json:"images"`
+		Status  string `json:"status"`
+		Bio     string `json:"bio"`
+		Country string `json:"country"`
+	} `json:"profile"`
+}
