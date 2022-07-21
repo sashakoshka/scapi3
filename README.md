@@ -15,7 +15,7 @@ This is still in progress.
 - [X] User session login
 - [X] User session verify
 - [ ] User session projects
-- [ ] User session comment
+- [X] User session comment (Broken)
 - [ ] Cloud session creation
 - [ ] Cloud session close
 - [ ] Cloud session get variable
