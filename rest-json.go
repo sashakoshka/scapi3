@@ -249,3 +249,7 @@ type FeaturedResponseItem struct {
 /* UserFavoritesResponse contains all projects a user has favorited.
  */
 type UserFavoritesResponse []ProjectResponse
+
+/* UserFollowersResponse contains all followers of a user.
+ */
+type UserFollowersResponse []UserResponse

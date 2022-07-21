@@ -170,3 +170,10 @@ func GetUserFavorites (name string) (structure UserFavoritesResponse, err error)
 	err = RestRequest(&structure, "/users/" + name + "/favorites")
 	return
 }
+
+/* GetUserFollowers returns all followers of a user.
+ */
+func GetUserFollowers (name string) (structure UserFollowersResponse, err error) {
+	err = RestRequest(&structure, "/users/" + name + "/followers")
+	return
+}
