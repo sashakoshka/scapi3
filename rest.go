@@ -156,3 +156,10 @@ func GetFeatured () (structure FeaturedResponse, err error) {
 	err = RestRequest(&structure, "/proxy/featured")
 	return
 }
+
+/* GetUser returns information about a user.
+ */
+func GetUser (name string) (structure UserResponse, err error) {
+	err = RestRequest(&structure, "/users/" + name)
+	return
+}
