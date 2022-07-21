@@ -228,3 +228,7 @@ type StudioProjectsResponseItem struct {
 /* StudioManagersResponse represents a list of all managers of a studio.
  */
 type StudioManagersResponse []UserResponse
+
+/* StudioCuratorsResponse represents a list of all curators of a studio.
+ */
+type StudioCuratorsResponse []UserResponse

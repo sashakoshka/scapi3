@@ -78,9 +78,16 @@ func GetStudioProjects (id uint64) (structure StudioProjectsResponse, err error)
 	return
 }
 
-/* GetStudioManagers returns a list of all projects in a studio.
+/* GetStudioManagers returns a list of all managers of a studio.
  */
 func GetStudioManagers (id uint64) (structure StudioManagersResponse, err error) {
 	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/managers")
+	return
+}
+
+/* GetStudioCurators returns a list of all curators of a studio.
+ */
+func GetStudioCurators (id uint64) (structure StudioCuratorsResponse, err error) {
+	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/curators")
 	return
 }
