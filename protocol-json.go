@@ -50,7 +50,7 @@ func UnmarshalLoginResponse (
 	return
 }
 
-/* HealthResponse represents a site health response from the API.
+/* HealthResponse contains data about the health of the Scratch website.
  */
 type HealthResponse struct {
 	Version string      `json:"version"`
@@ -97,6 +97,34 @@ func UnmarshalHealthResponse (
 	data []byte,
 ) (
 	structure HealthResponse,
+	err       error,
+) {
+	err = json.Unmarshal(data, &structure)
+	return
+}
+
+/* NewsResponse represents a list of recent news from the Scratch website.
+ */
+type NewsResponse []NewsResponseItem
+
+/* NewsResponseItem represents a single news article
+ */
+type NewsResponseItem struct {
+	Id       uint64 `json:"id"`
+	Stamp    string `json:"stamp"`
+	Headline string `json:"headline"`
+	URL      string `json:"url"`
+	Image    string `json:"image"`
+	Copy     string `json:"copy"`
+}
+
+/* UnmarshalNewsResponse takes in a JSON encoded byte slice and returns
+ * a list of recent news articles from the Scratch website.
+ */
+func UnmarshalNewsResponse (
+	data []byte,
+) (
+	structure NewsResponse,
 	err       error,
 ) {
 	err = json.Unmarshal(data, &structure)
