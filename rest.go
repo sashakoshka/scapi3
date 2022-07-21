@@ -7,11 +7,25 @@ import "encoding/json"
 
 /* RestRequest performs a generic request to the scratch rest API.
  */
-func RestRequest [T any](structure *T, path string) (err error) {
+func RestRequest [T any](
+	structure *T,
+	path   string,
+	limit  int,
+	offset int,
+	since  string,
+) (
+	err error,
+) {
+	path += "?"
+	if (limit  >  0) { path += fmt.Sprintf("limit=%d&",    limit ) }
+	if (offset >  0) { path += fmt.Sprintf("offset=%d&",   offset) }
+	if (since != "") { path += fmt.Sprintf("dateLimit=%s", since ) }
+
 	response, body, err := Request {
 		Path:     path,
 		Hostname: "api.scratch.mit.edu",
 	}.Send()
+	
 	if err != nil { return }
 	if response.StatusCode != http.StatusOK {
 		err = fmt.Errorf (
@@ -29,14 +43,14 @@ func RestRequest [T any](structure *T, path string) (err error) {
 /* GetHealth returns information relating to the health of the scratch website.
  */
 func GetHealth () (structure HealthResponse, err error) {
-	err = RestRequest(&structure, "/health")
+	err = RestRequest(&structure, "/health", 0, 0, "")
 	return
 }
 
 /* GetNews returns recent news articles from the scratch website.
  */
-func GetNews () (structure NewsResponse, err error) {
-	err = RestRequest(&structure, "/news")
+func GetNews (limit, offset int) (structure NewsResponse, err error) {
+	err = RestRequest(&structure, "/news", limit, offset, "")
 	return
 }
 
@@ -45,7 +59,7 @@ func GetNews () (structure NewsResponse, err error) {
  */
 func GetProjectsCountAll () (count uint64, err error) {
 	structure := CountResponse { }
-	err = RestRequest(&structure, "/projects/count/all")
+	err = RestRequest(&structure, "/projects/count/all", 0, 0, "")
 	count = structure.Count
 	return
 }
@@ -53,60 +67,97 @@ func GetProjectsCountAll () (count uint64, err error) {
 /* GetProject returns information about a project.
  */
 func GetProject (id uint64) (structure ProjectResponse, err error) {
-	err = RestRequest(&structure, "/projects/" + strconv.FormatUint(id, 10))
+	err = RestRequest (
+		&structure, "/projects/" + strconv.FormatUint(id, 10),
+		0, 0, "")
 	return
 }
 
 /* GetProjectRemixes returns the remixes of a project.
  */
-func GetProjectRemixes (id uint64) (structure []ProjectResponse, err error) {
+func GetProjectRemixes (
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure []ProjectResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
-		"/projects/" + strconv.FormatUint(id, 10) + "/remixes")
+		"/projects/" + strconv.FormatUint(id, 10) + "/remixes",
+		limit, offset, "")
 	return
 }
 
 /* GetStudio returns information about a studio.
  */
 func GetStudio (id uint64) (structure StudioResponse, err error) {
-	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10))
+	err = RestRequest (
+		&structure, "/studios/" + strconv.FormatUint(id, 10),
+		0, 0, "")
 	return
 }
 
 /* GetStudioProjects returns a list of all projects in a studio.
  */
-func GetStudioProjects (id uint64) (structure StudioProjectsResponse, err error) {
+func GetStudioProjects (
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure StudioProjectsResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
-		"/studios/" + strconv.FormatUint(id, 10) + "/projects")
+		"/studios/" + strconv.FormatUint(id, 10) + "/projects",
+		limit, offset, "")
 	return
 }
 
 /* GetStudioManagers returns a list of all managers of a studio.
  */
-func GetStudioManagers (id uint64) (structure []UserResponse, err error) {
+func GetStudioManagers (
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure []UserResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
-		"/studios/" + strconv.FormatUint(id, 10) + "/managers")
+		"/studios/" + strconv.FormatUint(id, 10) + "/managers",
+		limit, offset, "")
 	return
 }
 
 /* GetStudioCurators returns a list of all curators of a studio.
  */
-func GetStudioCurators (id uint64) (structure []UserResponse, err error) {
+func GetStudioCurators (
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure []UserResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
-		"/studios/" + strconv.FormatUint(id, 10) + "/curators")
+		"/studios/" + strconv.FormatUint(id, 10) + "/curators",
+		limit, offset, "")
 	return
 }
 
-/* GetStudioActivity returns a list of all curators of a studio. If since is
- * blank, a date limit is not sent.
+/* GetStudioActivity returns a list of all recent activityin s studio. If since
+ * is blank, a date limit is not sent.
  */
 func GetStudioActivity (
 	id uint64,
 	// TODO: make this a golang time
 	since string,
+	limit int,
 ) (
 	structure StudioActivityResponse,
 	err error,
@@ -117,71 +168,121 @@ func GetStudioActivity (
 		url += "?dateLimit=" + since
 	}
 	
-	err = RestRequest(&structure, url)
+	err = RestRequest(&structure, url, limit, 0, since)
 	return
 }
 
 /* GetStudioComments returns a list of all comments on a studio.
  */
-func GetStudioComments (id uint64) (structure []CommentResponse, err error) {
+func GetStudioComments (
+	id     uint64,
+	limit  int,
+	offset int,
+) (
+	structure []CommentResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
-		"/studios/" + strconv.FormatUint(id, 10) + "/comments")
+		"/studios/" + strconv.FormatUint(id, 10) + "/comments",
+		limit, offset, "")
 	return
 }
 
 /* GetStudioComment returns a comment on a studio.
  */
-func GetStudioComment (id, commentID uint64) (structure CommentResponse, err error) {
+func GetStudioComment (
+	id        uint64,
+	commentID uint64,
+) (
+	structure CommentResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) +
-		"/comments/" + strconv.FormatUint(commentID, 10))
+		"/comments/" + strconv.FormatUint(commentID, 10),
+		0, 0, "")
 	return
 }
 
 /* GetStudioCommentReplies returns the replies for a comment on a studio.
  */
-func GetStudioCommentReplies (id, commentID uint64) (structure []CommentResponse, err error) {
+func GetStudioCommentReplies (
+	id        uint64,
+	commentID uint64,
+	limit     int,
+	offset    int,
+) (
+	structure []CommentResponse,
+	err error,
+) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) +
-		"/comments/" + strconv.FormatUint(commentID, 10) + "/replies")
+		"/comments/" + strconv.FormatUint(commentID, 10) + "/replies",
+		limit, offset, "")
 	return
 }
 
-/* GetStudioCommentReplies returns the replies for a comment on a studio.
+/* GetFeatured returns information about front paged projects.
  */
 func GetFeatured () (structure FeaturedResponse, err error) {
-	err = RestRequest(&structure, "/proxy/featured")
+	err = RestRequest(&structure, "/proxy/featured", 0, 0, "")
 	return
 }
 
 /* GetUser returns information about a user.
  */
 func GetUser (name string) (structure UserResponse, err error) {
-	err = RestRequest(&structure, "/users/" + name)
+	err = RestRequest(&structure, "/users/" + name, 0, 0, "")
 	return
 }
 
 /* GetUserFavorites returns all projects favorited by a user.
  */
-func GetUserFavorites (name string) (structure []ProjectResponse, err error) {
-	err = RestRequest(&structure, "/users/" + name + "/favorites")
+func GetUserFavorites (
+	name   string,
+	limit  int,
+	offset int,
+) (
+	structure []ProjectResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/favorites",
+		limit, offset, "")
 	return
 }
 
 /* GetUserFollowers returns all followers of a user.
  */
-func GetUserFollowers (name string) (structure []UserResponse, err error) {
-	err = RestRequest(&structure, "/users/" + name + "/followers")
+func GetUserFollowers (
+	name   string,
+	limit  int,
+	offset int,
+) (
+	structure []UserResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/followers",
+		limit, offset, "")
 	return
 }
 
 /* GetUserFollowing returns all users a user is following.
  */
-func GetUserFollowing (name string) (structure []UserResponse, err error) {
-	err = RestRequest(&structure, "/users/" + name + "/followers")
+func GetUserFollowing (
+	name   string,
+	limit  int,
+	offset int,
+) (
+	structure []UserResponse,
+	err error,
+) {
+	err = RestRequest (&structure, "/users/" + name + "/followers",
+		limit, offset, "")
 	return
 }
 
@@ -189,7 +290,25 @@ func GetUserFollowing (name string) (structure []UserResponse, err error) {
  */
 func GetUserMessageCount (name string) (count uint64, err error) {
 	structure := CountResponse { }
-	err = RestRequest(&structure, "/users/" + name + "/messages/count")
+	err = RestRequest (
+		&structure, "/users/" + name + "/messages/count",
+		0, 0, "")
 	count = structure.Count
+	return
+}
+
+/* GetUserProjects returns all projects made by a user.
+ */
+func GetUserProjects (
+	name   string,
+	limit  int,
+	offset int,
+) (
+	structure []ProjectResponse,
+	err error,
+) {
+	err = RestRequest (
+		&structure, "/users/" + name + "/projects",
+		limit, offset, "")
 	return
 }
