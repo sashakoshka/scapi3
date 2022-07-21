@@ -5,17 +5,18 @@ import "strconv"
 import "net/http"
 import "encoding/json"
 
-/* GetHealth returns information relating to the health of the scratch website.
+/* RestRequest performs a generic request to the scratch rest API.
  */
-func GetHealth () (structure HealthResponse, err error) {
+func RestRequest [T any](structure *T, path string) (err error) {
 	response, body, err := Request {
-		Path:     "/health",
+		Path:     path,
 		Hostname: "api.scratch.mit.edu",
 	}.Send()
 	if err != nil { return }
 	if response.StatusCode != http.StatusOK {
 		err = fmt.Errorf (
-			"cannot get site health (%i)",
+			"cannot get %s (%i)",
+			path,
 			response.StatusCode)
 		return
 	}
@@ -25,23 +26,17 @@ func GetHealth () (structure HealthResponse, err error) {
 	return
 }
 
-/* GetNews returns information relating to the health of the scratch website.
+/* GetHealth returns information relating to the health of the scratch website.
+ */
+func GetHealth () (structure HealthResponse, err error) {
+	err = RestRequest(&structure, "/health")
+	return
+}
+
+/* GetNews returns recent news articles from the scratch website.
  */
 func GetNews () (structure NewsResponse, err error) {
-	response, body, err := Request {
-		Path:     "/news",
-		Hostname: "api.scratch.mit.edu",
-	}.Send()
-	if err != nil { return }
-	if response.StatusCode != http.StatusOK {
-		err = fmt.Errorf (
-			"cannot get site news (%i)",
-			response.StatusCode)
-		return
-	}
-	
-	err = json.Unmarshal(body, &structure)
-	if err != nil { return }
+	err = RestRequest(&structure, "/news")
 	return
 }
 
@@ -49,21 +44,8 @@ func GetNews () (structure NewsResponse, err error) {
  * the site.
  */
 func GetProjectsCountAll () (count uint64, err error) {
-	response, body, err := Request {
-		Path:     "/projects/count/all",
-		Hostname: "api.scratch.mit.edu",
-	}.Send()
-	if err != nil { return }
-	if response.StatusCode != http.StatusOK {
-		err = fmt.Errorf (
-			"cannot get projects count (%i)",
-			response.StatusCode)
-		return
-	}
-
 	structure := ProjectsCountAllResponse { }
-	err = json.Unmarshal(body, &structure)
-	if err != nil { return }
+	err = RestRequest(&structure, "/projects/count/all")
 	count = structure.Count
 	return
 }
@@ -71,39 +53,13 @@ func GetProjectsCountAll () (count uint64, err error) {
 /* GetProject returns information about a project.
  */
 func GetProject (id uint64) (structure ProjectResponse, err error) {
-	response, body, err := Request {
-		Path:     "/projects/" + strconv.FormatUint(id, 10),
-		Hostname: "api.scratch.mit.edu",
-	}.Send()
-	if err != nil { return }
-	if response.StatusCode != http.StatusOK {
-		err = fmt.Errorf (
-			"cannot get project info (%i)",
-			response.StatusCode)
-		return
-	}
-
-	err = json.Unmarshal(body, &structure)
-	if err != nil { return }
+	err = RestRequest(&structure, "/projects/" + strconv.FormatUint(id, 10))
 	return
 }
 
 /* GetProjectRemixes returns the remixes of a project.
  */
 func GetProjectRemixes (id uint64) (structure RemixesResponse, err error) {
-	response, body, err := Request {
-		Path:     "/projects/" + strconv.FormatUint(id, 10) + "/remixes",
-		Hostname: "api.scratch.mit.edu",
-	}.Send()
-	if err != nil { return }
-	if response.StatusCode != http.StatusOK {
-		err = fmt.Errorf (
-			"cannot get project remixes (%i)",
-			response.StatusCode)
-		return
-	}
-
-	err = json.Unmarshal(body, &structure)
-	if err != nil { return }
+	err = RestRequest(&structure, "/projects/" + strconv.FormatUint(id, 10) + "/remixes")
 	return
 }
