@@ -53,7 +53,7 @@ func (session *UserSession) Login () (err error) {
 		Path:	"/accounts/login/",
 		Method:	MethodPost,
 		
-		Body: ProtocolLoginRequest {
+		Body: LoginRequest {
 			Username: session.username,
 			Password: session.password,
 		},
@@ -66,7 +66,7 @@ func (session *UserSession) Login () (err error) {
 		Client: &session.client,
 	}.Send()
 	
-	loginData, err := UnmarshalLoginResponse(body)
+	loginData, err := UnmarshalLoginStatusResponse(body)
 	if err != nil {
 		return fmt.Errorf (
 			"cannot parse server response (%s): %v",
@@ -134,7 +134,7 @@ func (session *UserSession) comment (
 		Path:     "/proxy/comments/" + where + "/" + id,
 		Method:   MethodPost,
 
-		Body: ProtocolCommentRequest {
+		Body: CommentRequest {
 			Content:     content,
 			ParentID:    parent,
 			CommenteeID: tagging,
@@ -155,7 +155,7 @@ func (session *UserSession) comment (
 			response.Status, err)
 	}
 
-	commentData := ProtocolCommentResponse { }
+	commentData := CommentStatusResponse { }
 	err = json.Unmarshal(body, &commentData)
 	if err != nil {
 		return fmt.Errorf (

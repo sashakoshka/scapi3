@@ -20,9 +20,17 @@ type Request struct {
 	Path		string
 	Method		Method
 	Headers		map[string] string
-	Body		ProtocolRequest
+	Body		RequestBody
 	Client		*http.Client
 }
+
+/* RequestBody represents a structure that can be marshalled into a byte
+ * slice.
+ */
+type RequestBody interface {
+	Marshal () (data []byte)
+}
+
 
 /* Send sends the request to the Scratch servers, and returns the response.
  */

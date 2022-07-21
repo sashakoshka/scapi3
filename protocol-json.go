@@ -2,31 +2,24 @@ package scapi3
 
 import "encoding/json"
 
-/* ProtocolRequest represents a structure that can be marshalled into a byte
- * slice.
- */
-type ProtocolRequest interface {
-	Marshal () (data []byte)
-}
-
-/* ProtocolLoginRequest represents a username and password combination that can
+/* LoginRequest represents a username and password combination that can
  * be encoded into the body of a login request.
  */
-type ProtocolLoginRequest struct {
+type LoginRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
 /* Marshal converts the login request body into a JSON encoded byte slice.
  */
-func (structure ProtocolLoginRequest) Marshal () (data []byte) {
+func (structure LoginRequest) Marshal () (data []byte) {
 	data, _ = json.Marshal(structure)
 	return
 }
 
-/* ProtocolCommentRequest represents a comment request.
+/* CommentRequest represents a comment request.
  */
-type ProtocolCommentRequest struct {
+type CommentRequest struct {
 	Content     string
 	ParentID    uint64
 	CommenteeID uint64
@@ -34,7 +27,7 @@ type ProtocolCommentRequest struct {
 
 /* Marshal converts the comment request body into a JSON encoded byte slice.
  */
-func (structure ProtocolCommentRequest) Marshal () (data []byte) {
+func (structure CommentRequest) Marshal () (data []byte) {
 	realStructure := map[string] any {
 		"content":      structure.Content,
 		"parent_id":    structure.ParentID,
@@ -53,9 +46,9 @@ func (structure ProtocolCommentRequest) Marshal () (data []byte) {
 	return
 }
 
-/* ProtocolLoginResponse represents a login response.
+/* LoginStatusResponse represents a login response.
  */
-type ProtocolLoginResponse struct {
+type LoginStatusResponse struct {
 	Username string   `json:"username"`
 	Token    string   `json:"token"`
 	NumTries int      `json:"num_tries"`
@@ -65,25 +58,25 @@ type ProtocolLoginResponse struct {
 	ID       int      `json:"id"`
 }
 
-/* UnmarshalLoginResponse takes in a JSON encoded byte slice and returns
+/* UnmarshalLoginStatusResponse takes in a JSON encoded byte slice and returns
  * unmarshaled login response data.
  */
-func UnmarshalLoginResponse (
+func UnmarshalLoginStatusResponse (
 	data []byte,
 ) (
-	structure ProtocolLoginResponse,
+	structure LoginStatusResponse,
 	err       error,
 ) {
-	array := []ProtocolLoginResponse { }
+	array := []LoginStatusResponse { }
 	err = json.Unmarshal(data, &array)
 	if err != nil { return }
 	structure = array[0]
 	return
 }
 
-/* ProtocolCommentResponse represents a response to a comment request.
+/* CommentStatusResponse represents a response to a comment request.
  */
-type ProtocolCommentResponse struct {
+type CommentStatusResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 }
