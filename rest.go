@@ -12,14 +12,32 @@ func RestRequest [T any](
 	path   string,
 	limit  int,
 	offset int,
-	since  string,
+) (
+	err error,
+) {
+	return RestRequestWithQueryString (
+		structure, path,
+		limit, offset, "")
+}
+
+/* RestRequestWithQueryString performs a generic request to the scratch rest
+ * API with additional query string parameters.
+ */
+func RestRequestWithQueryString [T any](
+	structure   *T,
+	path        string,
+	limit       int,
+	offset      int,
+	queryString string,
 ) (
 	err error,
 ) {
 	path += "?"
-	if (limit  >  0) { path += fmt.Sprintf("limit=%d&",    limit ) }
-	if (offset >  0) { path += fmt.Sprintf("offset=%d&",   offset) }
-	if (since != "") { path += fmt.Sprintf("dateLimit=%s", since ) }
+	if limit  > 0 { path += fmt.Sprintf("limit=%d&",  limit ) }
+	if offset > 0 { path += fmt.Sprintf("offset=%d&", offset) }
+	if queryString != "" {
+		path += queryString
+	}
 
 	response, body, err := Request {
 		Path:     path,
@@ -43,14 +61,14 @@ func RestRequest [T any](
 /* GetHealth returns information relating to the health of the scratch website.
  */
 func GetHealth () (structure HealthResponse, err error) {
-	err = RestRequest(&structure, "/health", 0, 0, "")
+	err = RestRequest(&structure, "/health", 0, 0)
 	return
 }
 
 /* GetNews returns recent news articles from the scratch website.
  */
 func GetNews (limit, offset int) (structure NewsResponse, err error) {
-	err = RestRequest(&structure, "/news", limit, offset, "")
+	err = RestRequest(&structure, "/news", limit, offset)
 	return
 }
 
@@ -59,7 +77,7 @@ func GetNews (limit, offset int) (structure NewsResponse, err error) {
  */
 func GetProjectsCountAll () (count uint64, err error) {
 	structure := CountResponse { }
-	err = RestRequest(&structure, "/projects/count/all", 0, 0, "")
+	err = RestRequest(&structure, "/projects/count/all", 0, 0)
 	count = structure.Count
 	return
 }
@@ -69,7 +87,7 @@ func GetProjectsCountAll () (count uint64, err error) {
 func GetProject (id uint64) (structure ProjectResponse, err error) {
 	err = RestRequest (
 		&structure, "/projects/" + strconv.FormatUint(id, 10),
-		0, 0, "")
+		0, 0)
 	return
 }
 
@@ -86,7 +104,7 @@ func GetProjectRemixes (
 	err = RestRequest (
 		&structure,
 		"/projects/" + strconv.FormatUint(id, 10) + "/remixes",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -95,7 +113,7 @@ func GetProjectRemixes (
 func GetStudio (id uint64) (structure StudioResponse, err error) {
 	err = RestRequest (
 		&structure, "/studios/" + strconv.FormatUint(id, 10),
-		0, 0, "")
+		0, 0)
 	return
 }
 
@@ -112,7 +130,7 @@ func GetStudioProjects (
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/projects",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -129,7 +147,7 @@ func GetStudioManagers (
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/managers",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -146,7 +164,7 @@ func GetStudioCurators (
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/curators",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -165,10 +183,10 @@ func GetStudioActivity (
 	url := "/studios/" + strconv.FormatUint(id, 10) + "/activity"
 
 	if since != "" {
-		url += "?dateLimit=" + since
+		since = "dateLimit=" + since
 	}
 	
-	err = RestRequest(&structure, url, limit, 0, since)
+	err = RestRequestWithQueryString(&structure, url, limit, 0, since)
 	return
 }
 
@@ -185,7 +203,7 @@ func GetStudioComments (
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/comments",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -202,7 +220,7 @@ func GetStudioComment (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) +
 		"/comments/" + strconv.FormatUint(commentID, 10),
-		0, 0, "")
+		0, 0)
 	return
 }
 
@@ -221,21 +239,21 @@ func GetStudioCommentReplies (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) +
 		"/comments/" + strconv.FormatUint(commentID, 10) + "/replies",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
 /* GetFeatured returns information about front paged projects.
  */
 func GetFeatured () (structure FeaturedResponse, err error) {
-	err = RestRequest(&structure, "/proxy/featured", 0, 0, "")
+	err = RestRequest(&structure, "/proxy/featured", 0, 0)
 	return
 }
 
 /* GetUser returns information about a user.
  */
 func GetUser (name string) (structure UserResponse, err error) {
-	err = RestRequest(&structure, "/users/" + name, 0, 0, "")
+	err = RestRequest(&structure, "/users/" + name, 0, 0)
 	return
 }
 
@@ -251,7 +269,7 @@ func GetUserFavorites (
 ) {
 	err = RestRequest (
 		&structure, "/users/" + name + "/favorites",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -267,7 +285,7 @@ func GetUserFollowers (
 ) {
 	err = RestRequest (
 		&structure, "/users/" + name + "/followers",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -282,7 +300,7 @@ func GetUserFollowing (
 	err error,
 ) {
 	err = RestRequest (&structure, "/users/" + name + "/followers",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -292,7 +310,7 @@ func GetUserMessageCount (name string) (count uint64, err error) {
 	structure := CountResponse { }
 	err = RestRequest (
 		&structure, "/users/" + name + "/messages/count",
-		0, 0, "")
+		0, 0)
 	count = structure.Count
 	return
 }
@@ -309,7 +327,7 @@ func GetUserProjects (
 ) {
 	err = RestRequest (
 		&structure, "/users/" + name + "/projects",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -325,7 +343,7 @@ func GetUserProject (
 	err = RestRequest (
 		&structure, "/users/" + name + "/projects/" +
 		strconv.FormatUint(id, 10),
-		0, 0, "")
+		0, 0)
 	return
 }
 
@@ -343,7 +361,7 @@ func GetUserProjectStudios (
 	err = RestRequest (
 		&structure, "/users/" + name + "/projects/" +
 		strconv.FormatUint(id, 10) + "/studios",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -361,7 +379,7 @@ func GetUserProjectComments (
 	err = RestRequest (
 		&structure, "/users/" + name + "/projects/" +
 		strconv.FormatUint(id, 10) + "/comments",
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -382,7 +400,7 @@ func GetUserProjectComment (
 		&structure, "/users/" + name + "/projects/" +
 		strconv.FormatUint(id, 10) + "/comments/" +
 		strconv.FormatUint(commentid, 10),
-		limit, offset, "")
+		limit, offset)
 	return
 }
 
@@ -403,6 +421,6 @@ func GetUserProjectCommentReplies (
 		&structure, "/users/" + name + "/projects/" +
 		strconv.FormatUint(id, 10) + "/comments/" +
 		strconv.FormatUint(commentid, 10) + "/replies",
-		limit, offset, "")
+		limit, offset)
 	return
 }
