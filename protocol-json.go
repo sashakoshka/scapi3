@@ -249,8 +249,12 @@ type StudioActivityResponseItem struct {
 	ActorUsername   string `json:"actor_username"`
 }
 
-type StudioCommentsResponse []CommentResponse
+/* CommentsResponse represents a list of comments
+ */
+type CommentsResponse []CommentResponse
 
+/* CommentResponse represents information about a single comment
+ */
 type CommentResponse struct {
 	ID               uint64 `json:"id"`
 	ParentID         uint64 `json:"parent_id"`

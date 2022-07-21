@@ -123,7 +123,7 @@ func GetStudioActivity (
 
 /* GetStudioComments returns a list of all comments on a studio.
  */
-func GetStudioComments (id uint64) (structure StudioCommentsResponse, err error) {
+func GetStudioComments (id uint64) (structure CommentsResponse, err error) {
 	err = RestRequest (
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) + "/comments")
@@ -137,5 +137,15 @@ func GetStudioComment (id, commentID uint64) (structure CommentResponse, err err
 		&structure,
 		"/studios/" + strconv.FormatUint(id, 10) +
 		"/comments/" + strconv.FormatUint(commentID, 10))
+	return
+}
+
+/* GetStudioCommentReplies returns the replies for a comment on a studio.
+ */
+func GetStudioCommentReplies (id, commentID uint64) (structure CommentsResponse, err error) {
+	err = RestRequest (
+		&structure,
+		"/studios/" + strconv.FormatUint(id, 10) +
+		"/comments/" + strconv.FormatUint(commentID, 10) + "/replies")
 	return
 }
