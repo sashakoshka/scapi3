@@ -63,3 +63,10 @@ func GetProjectRemixes (id uint64) (structure RemixesResponse, err error) {
 	err = RestRequest(&structure, "/projects/" + strconv.FormatUint(id, 10) + "/remixes")
 	return
 }
+
+/* GetStudio returns information about a studio.
+ */
+func GetStudio (id uint64) (structure RemixesResponse, err error) {
+	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10))
+	return
+}
