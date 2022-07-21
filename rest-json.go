@@ -245,3 +245,7 @@ type FeaturedResponseItem struct {
 	ID           uint64 `json:"id"`
 	LoveCount    int    `json:"love_count"`
 }
+
+/* UserFavoritesResponse contains all projects a user has favorited.
+ */
+type UserFavoritesResponse []ProjectResponse

@@ -41,7 +41,7 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [X] API GET `/studios/<studio_id>/comments/<comment_id>/replies`
 - [X] API GET `/proxy/featured`
 - [X] API GET `/users/<username>`
-- [ ] API GET `/users/<username>/favorites`
+- [X] API GET `/users/<username>/favorites`
 - [ ] API GET `/users/<username>/followers`
 - [ ] API GET `/users/<username>/following`
 - [ ] API GET `/users/<username>/messages/count`

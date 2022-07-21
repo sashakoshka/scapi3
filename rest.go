@@ -163,3 +163,10 @@ func GetUser (name string) (structure UserResponse, err error) {
 	err = RestRequest(&structure, "/users/" + name)
 	return
 }
+
+/* GetUserFavorites returns all projects favorited by a user.
+ */
+func GetUserFavorites (name string) (structure UserFavoritesResponse, err error) {
+	err = RestRequest(&structure, "/users/" + name + "/favorites")
+	return
+}
