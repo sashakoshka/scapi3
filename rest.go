@@ -70,3 +70,10 @@ func GetStudio (id uint64) (structure StudioResponse, err error) {
 	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10))
 	return
 }
+
+/* GetStudioProjects returns a list of all projects in a studio.
+ */
+func GetStudioProjects (id uint64) (structure StudioProjectsResponse, err error) {
+	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/projects")
+	return
+}

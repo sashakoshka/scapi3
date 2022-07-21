@@ -196,9 +196,31 @@ type UserResponse struct {
 			Size55px string `json:"55x55"`
 			Size50px string `json:"50x50"`
 			Size32px string `json:"32x32"`
-		}
+		} `json:"images"`
 		Status  string `json:"status"`
 		Bio     string `json:"bio"`
 		Country string `json:"country"`
 	} `json:"profile"`
+}
+
+/* StudioProjectsResponse represents a list of projects inside of a studio.
+ */
+type StudioProjectsResponse []StudioProjectsResponseItem
+
+/* StudioProjectsResponseItem represents one project in a studio.
+ */
+type StudioProjectsResponseItem struct {
+	ID              uint64 `json:"id"`
+	Title           string `json:"title"`
+	Image           string `json:"image"`
+	CreatorID       uint64 `json:"creator_id"`
+	Username        string `json:"username"`
+	Avatar struct {
+		Size90px string `json:"90x90"`
+		Size60px string `json:"60x60"`
+		Size55px string `json:"55x55"`
+		Size50px string `json:"50x50"`
+		Size32px string `json:"32x32"`
+	} `json:"avatar"`
+	ActorID uint64 `json:"actor_id"`
 }
