@@ -111,3 +111,66 @@ type NewsResponseItem struct {
 type ProjectsCountAllResponse struct {
 	Count uint64 `json:"count"`
 }
+
+/* ProjectResponse holds information about a project.
+ */
+type ProjectResponse struct {
+	ID              uint64       `json:"id"`
+	Title           string       `json:"title"`
+	Description     string       `json:"description"`
+	Instructions    string       `json:"instructions"`
+	Visibility      string       `json:"visibility"`
+	Public          bool         `json:"public"`
+	CommentsAllowed bool         `json:"comments_allowed"`
+	IsPublished     bool         `json:"is_published"`
+	Author          UserResponse `json:"author"`
+	Image           string       `json:"image"`
+	Images struct {
+		Size218px string `json:"282x218"`
+		Size163px string `json:"216x163"`
+		Size200px string `json:"200x200"`
+		Size108px string `json:"144x108"`
+		Size102px string `json:"135x102"`
+		Size80px  string `json:"100x80"`
+	} `json:"images"`
+	History struct {
+		Created  string `json:"created"`
+		Modified string `json:"modified"`
+		Shared   string `json:"shared"`
+	} `json:"history"`
+	Stats struct {
+		Views     int `json:"views"`
+		Loves     int `json:"loves"`
+		Favorites int `json:"favorites"`
+		Remixes   int `json:"remixes"`
+	} `json:"stats"`
+	Remix struct {
+		Parent uint64 `json:"parent"`
+		Root   uint64 `json:"root"`
+	} `json:"remix"`
+	ProjectToken string `json:"project_token"`
+}
+
+/* UserResponse holds information about a user.
+ */
+type UserResponse struct {
+	ID          uint64 `json:"id"`
+	Username    string `json:"username"`
+	ScratchTeam bool   `json:"scratchteam"`
+	History struct {
+		Joined string `json:"joined"`
+	} `json:"history"`
+	Profile struct {
+		ID uint64 `json:"id"`
+		Images struct {
+			Size90px string `json:"90x90"`
+			Size60px string `json:"60x60"`
+			Size55px string `json:"55x55"`
+			Size50px string `json:"50x50"`
+			Size32px string `json:"32x32"`
+		}
+		Status  string `json:"status"`
+		Bio     string `json:"bio"`
+		Country string `json:"country"`
+	} `json:"profile"`
+}

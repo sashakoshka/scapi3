@@ -24,10 +24,12 @@ This is still in progress.
 
 ### Rest API
 
+Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
+
 - [x] API GET `/health`
 - [x] API GET `/news`
 - [X] API GET `/projects/count/all` (This is broken on Scratch's end)
-- [ ] API GET `/projects/<project_id>`
+- [X] API GET `/projects/<project_id>`
 - [ ] API GET `/projects/<project_id>/remixes`
 - [ ] API GET `/studios/<studio_id>`
 - [ ] API GET `/studios/<studio_id>/projects`
@@ -55,4 +57,3 @@ This is still in progress.
 - [ ] API GET `/explore/studios?q=<query>&mode=<mode>&language=<language_code>`
 - [ ] API GET `/search/projects?q=<query>&mode=<mode>&language=<language_code>`
 - [ ] API GET `/search/studios?q=<query>&mode=<mode>&language=<language_code>`
-
