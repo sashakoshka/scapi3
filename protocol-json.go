@@ -90,19 +90,6 @@ type HealthResponseSQLStatistic struct {
 	PendingCreates  int  `json:"pendingCreates"`
 }
 
-/* UnmarshalHealthResponse takes in a JSON encoded byte slice and returns
- * unmarshaled site health data.
- */
-func UnmarshalHealthResponse (
-	data []byte,
-) (
-	structure HealthResponse,
-	err       error,
-) {
-	err = json.Unmarshal(data, &structure)
-	return
-}
-
 /* NewsResponse represents a list of recent news from the Scratch website.
  */
 type NewsResponse []NewsResponseItem
@@ -116,17 +103,4 @@ type NewsResponseItem struct {
 	URL      string `json:"url"`
 	Image    string `json:"image"`
 	Copy     string `json:"copy"`
-}
-
-/* UnmarshalNewsResponse takes in a JSON encoded byte slice and returns
- * a list of recent news articles from the Scratch website.
- */
-func UnmarshalNewsResponse (
-	data []byte,
-) (
-	structure NewsResponse,
-	err       error,
-) {
-	err = json.Unmarshal(data, &structure)
-	return
 }

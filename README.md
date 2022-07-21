@@ -10,7 +10,7 @@ This is still in progress.
 
 ## API coverage
 
-### User essions
+### User sessions
 
 - [x] User session login
 - [ ] User session verify

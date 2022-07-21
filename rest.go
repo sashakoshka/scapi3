@@ -2,8 +2,7 @@ package scapi3
 
 import "fmt"
 import "net/http"
-// import "time"
-// import "strconv"
+import "encoding/json"
 
 /* GetHealth returns information relating to the health of the scratch website.
  */
@@ -20,7 +19,7 @@ func GetHealth () (structure HealthResponse, err error) {
 		return
 	}
 	
-	structure, err = UnmarshalHealthResponse(body)
+	err = json.Unmarshal(body, &structure)
 	if err != nil { return }
 	return
 }
@@ -40,7 +39,7 @@ func GetNews () (structure NewsResponse, err error) {
 		return
 	}
 	
-	structure, err = UnmarshalNewsResponse(body)
+	err = json.Unmarshal(body, &structure)
 	if err != nil { return }
 	return
 }
