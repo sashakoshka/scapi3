@@ -10,7 +10,7 @@ type ProtocolRequest interface {
 }
 
 /* ProtocolLoginRequest represents a username and password combination that can
- * be encoded into the body of a login request..
+ * be encoded into the body of a login request.
  */
 type ProtocolLoginRequest struct {
 	Username string `json:"username"`
@@ -34,10 +34,10 @@ type ProtocolLoginResponse struct {
 	ID       int      `json:"id"`
 }
 
-/* UnmarshalProtocolLoginResponse takes in a JSON encoded byte slice and returns
+/* UnmarshalLoginResponse takes in a JSON encoded byte slice and returns
  * unmarshaled login response data.
  */
-func UnmarshalProtocolLoginResponse (
+func UnmarshalLoginResponse (
 	data []byte,
 ) (
 	structure ProtocolLoginResponse,
@@ -45,6 +45,7 @@ func UnmarshalProtocolLoginResponse (
 ) {
 	array := []ProtocolLoginResponse { }
 	err = json.Unmarshal(data, &array)
+	if err != nil { return }
 	structure = array[0]
 	return
 }

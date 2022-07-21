@@ -65,7 +65,7 @@ func (session *UserSession) Login () (err error) {
 		Client: &session.client,
 	}.Send()
 	
-	loginData, err := UnmarshalProtocolLoginResponse(body)
+	loginData, err := UnmarshalLoginResponse(body)
 	if err != nil {
 		return fmt.Errorf (
 			"cannot parse server response (%s): %v",
