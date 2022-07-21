@@ -271,3 +271,27 @@ type CommentResponse struct {
 	} `json:"author"`
 	ReplyCount int `json:"reply_count"`
 }
+
+/* FeaturedResponse contains information about what's on the front page of the
+ * Scratch website.
+ */
+type FeaturedResponse struct {
+	CommunityNewestProjects      []FeaturedResponseItem `json:"community_newest_projects"`
+	CommunityMostRemixedProjects []FeaturedResponseItem `json:"community_most_remixed_projects"`
+	CommunityMostLovedProjects   []FeaturedResponseItem `json:"community_most_loved_projects"`
+	CommunityFeaturedStudios     []FeaturedResponseItem `json:"community_featured_studios"`
+	CommunityFeaturedProjects    []FeaturedResponseItem `json:"community_featured_projects"`
+	ScratchDesignStudio          []FeaturedResponseItem `json:"scratch_design_studio"`
+	CuratorTopProjects           []FeaturedResponseItem `json:"curator_top_projects"`
+}
+
+/* FeaturedResponseItem contains information about a front paged project.
+ */
+type FeaturedResponseItem struct {
+	ThumbnailUrl string `json:"thumbnail_url"`
+	Title        string `json:"title"`
+	Creator      string `json:"string"`
+	Type         string `json:"type"`
+	ID           uint64 `json:"id"`
+	LoveCount    int    `json:"love_count"`
+}

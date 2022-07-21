@@ -149,3 +149,10 @@ func GetStudioCommentReplies (id, commentID uint64) (structure CommentsResponse,
 		"/comments/" + strconv.FormatUint(commentID, 10) + "/replies")
 	return
 }
+
+/* GetStudioCommentReplies returns the replies for a comment on a studio.
+ */
+func GetFeatured () (structure FeaturedResponse, err error) {
+	err = RestRequest(&structure, "/proxy/featured")
+	return
+}
