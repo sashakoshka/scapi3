@@ -26,7 +26,7 @@ This is still in progress.
 
 - [x] API GET `/health`
 - [x] API GET `/news`
-- [ ] API GET `/projects/count/all`
+- [X] API GET `/projects/count/all` (This is broken on Scratch's end)
 - [ ] API GET `/projects/<project_id>`
 - [ ] API GET `/projects/<project_id>/remixes`
 - [ ] API GET `/studios/<studio_id>`

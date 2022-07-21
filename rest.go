@@ -43,3 +43,26 @@ func GetNews () (structure NewsResponse, err error) {
 	if err != nil { return }
 	return
 }
+
+/* GetProjectsCountAll returns the amount of projects that have been uploaded to
+ * the site.
+ */
+func GetProjectsCountAll () (count uint64, err error) {
+	response, body, err := Request {
+		Path:     "/projects/count/all",
+		Hostname: "api.scratch.mit.edu",
+	}.Send()
+	if err != nil { return }
+	if response.StatusCode != http.StatusOK {
+		err = fmt.Errorf (
+			"cannot get projects count (%i)",
+			response.StatusCode)
+		return
+	}
+
+	structure := ProjectsCountAllResponse { }
+	err = json.Unmarshal(body, &structure)
+	if err != nil { return }
+	count = structure.Count
+	return
+}
