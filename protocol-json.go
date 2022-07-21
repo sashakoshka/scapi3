@@ -151,6 +151,34 @@ type ProjectResponse struct {
 	ProjectToken string `json:"project_token"`
 }
 
+/* RemixesResponse holds information about a project's remixes.
+ */
+type RemixesResponse []ProjectResponse
+
+/* StudioResponse holds information about a studio. 
+ */
+type StudioResponse struct {
+	ID              uint64 `json:"id"`
+	Title           string `json:"title"`
+	Host            uint64 `json:"host"`
+	Description     string `json:"description"`
+	Visibility      string `json:"visibility"`
+	Public          bool   `json:"public"`
+	OpenToAll       bool   `json:"open_to_all"`
+	CommentsAllowed bool   `json:"comments_allowed"`
+	Image           string `json:"image"`
+	History struct {
+		Created  string `json:"created"`
+		Modified string `json:"modified"`
+	} `json:"history"`
+	Stats struct {
+		Comments  int `json:"comments"`
+		Followers int `json:"followers"`
+		Managers  int `json:"managers"`
+		Projects  int `json:"projects"`
+	} `json:"stats"`
+}
+
 /* UserResponse holds information about a user.
  */
 type UserResponse struct {
@@ -174,7 +202,3 @@ type UserResponse struct {
 		Country string `json:"country"`
 	} `json:"profile"`
 }
-
-/* RemixesResponse holds information about a project's remixes.
- */
-type RemixesResponse []ProjectResponse
