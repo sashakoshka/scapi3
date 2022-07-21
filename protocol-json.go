@@ -210,11 +210,11 @@ type StudioProjectsResponse []StudioProjectsResponseItem
 /* StudioProjectsResponseItem represents one project in a studio.
  */
 type StudioProjectsResponseItem struct {
-	ID              uint64 `json:"id"`
-	Title           string `json:"title"`
-	Image           string `json:"image"`
-	CreatorID       uint64 `json:"creator_id"`
-	Username        string `json:"username"`
+	ID        uint64 `json:"id"`
+	Title     string `json:"title"`
+	Image     string `json:"image"`
+	CreatorID uint64 `json:"creator_id"`
+	Username  string `json:"username"`
 	Avatar struct {
 		Size90px string `json:"90x90"`
 		Size60px string `json:"60x60"`
@@ -224,3 +224,7 @@ type StudioProjectsResponseItem struct {
 	} `json:"avatar"`
 	ActorID uint64 `json:"actor_id"`
 }
+
+/* StudioManagersResponse represents a list of all managers of a studio.
+ */
+type StudioManagersResponse []UserResponse

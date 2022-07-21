@@ -32,7 +32,7 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [X] API GET `/projects/<project_id>`
 - [X] API GET `/projects/<project_id>/remixes`
 - [X] API GET `/studios/<studio_id>`
-- [ ] API GET `/studios/<studio_id>/projects`
+- [X] API GET `/studios/<studio_id>/projects`
 - [ ] API GET `/studios/<studio_id>/managers`
 - [ ] API GET `/studios/<studio_id>/curators`
 - [ ] API GET `/studios/<studio_id>/activity?dateLimit=<date>`
