@@ -60,7 +60,9 @@ func GetProject (id uint64) (structure ProjectResponse, err error) {
 /* GetProjectRemixes returns the remixes of a project.
  */
 func GetProjectRemixes (id uint64) (structure RemixesResponse, err error) {
-	err = RestRequest(&structure, "/projects/" + strconv.FormatUint(id, 10) + "/remixes")
+	err = RestRequest (
+		&structure,
+		"/projects/" + strconv.FormatUint(id, 10) + "/remixes")
 	return
 }
 
@@ -74,21 +76,27 @@ func GetStudio (id uint64) (structure StudioResponse, err error) {
 /* GetStudioProjects returns a list of all projects in a studio.
  */
 func GetStudioProjects (id uint64) (structure StudioProjectsResponse, err error) {
-	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/projects")
+	err = RestRequest (
+		&structure,
+		"/studios/" + strconv.FormatUint(id, 10) + "/projects")
 	return
 }
 
 /* GetStudioManagers returns a list of all managers of a studio.
  */
 func GetStudioManagers (id uint64) (structure StudioManagersResponse, err error) {
-	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/managers")
+	err = RestRequest (
+		&structure,
+		"/studios/" + strconv.FormatUint(id, 10) + "/managers")
 	return
 }
 
 /* GetStudioCurators returns a list of all curators of a studio.
  */
 func GetStudioCurators (id uint64) (structure StudioCuratorsResponse, err error) {
-	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/curators")
+	err = RestRequest (
+		&structure,
+		"/studios/" + strconv.FormatUint(id, 10) + "/curators")
 	return
 }
 
@@ -116,6 +124,18 @@ func GetStudioActivity (
 /* GetStudioComments returns a list of all comments on a studio.
  */
 func GetStudioComments (id uint64) (structure StudioCommentsResponse, err error) {
-	err = RestRequest(&structure, "/studios/" + strconv.FormatUint(id, 10) + "/comments")
+	err = RestRequest (
+		&structure,
+		"/studios/" + strconv.FormatUint(id, 10) + "/comments")
+	return
+}
+
+/* GetStudioComment returns a comment on a studio.
+ */
+func GetStudioComment (id, commentID uint64) (structure CommentResponse, err error) {
+	err = RestRequest (
+		&structure,
+		"/studios/" + strconv.FormatUint(id, 10) +
+		"/comments/" + strconv.FormatUint(commentID, 10))
 	return
 }
