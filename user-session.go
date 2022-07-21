@@ -87,3 +87,17 @@ func (session *UserSession) Login () (err error) {
 	// fmt.Println(session.client.Jar.Cookies(urlObj))
 	return
 }
+
+/* Verify checks whether a session is valid. It returns whether or not it is
+ * valid, and sets the session's valid flag accordingly.
+ */
+func (session *UserSession) Verify () (valid bool) {
+	// TODO: there is a high chance this doesn't work. Find out if it does
+	// work, and if it doesn't, create a better solution.
+	response, _, err := Request {
+		Client: &session.client,
+	}.Send()
+	valid = err == nil && response.StatusCode == http.StatusOK
+	session.valid = valid
+	return
+} 

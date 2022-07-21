@@ -12,8 +12,8 @@ This is still in progress.
 
 ### User sessions
 
-- [x] User session login
-- [ ] User session verify
+- [X] User session login
+- [X] User session verify
 - [ ] User session projects
 - [ ] User session comment
 - [ ] Cloud session creation
@@ -26,8 +26,8 @@ This is still in progress.
 
 Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 
-- [x] API GET `/health`
-- [x] API GET `/news`
+- [X] API GET `/health`
+- [X] API GET `/news`
 - [X] API GET `/projects/count/all` (This is broken on Scratch's end)
 - [X] API GET `/projects/<project_id>`
 - [X] API GET `/projects/<project_id>/remixes`
