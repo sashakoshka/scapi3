@@ -44,7 +44,7 @@ func GetNews () (structure NewsResponse, err error) {
  * the site.
  */
 func GetProjectsCountAll () (count uint64, err error) {
-	structure := ProjectsCountAllResponse { }
+	structure := CountResponse { }
 	err = RestRequest(&structure, "/projects/count/all")
 	count = structure.Count
 	return
@@ -175,5 +175,21 @@ func GetUserFavorites (name string) (structure []ProjectResponse, err error) {
  */
 func GetUserFollowers (name string) (structure []UserResponse, err error) {
 	err = RestRequest(&structure, "/users/" + name + "/followers")
+	return
+}
+
+/* GetUserFollowing returns all users a user is following.
+ */
+func GetUserFollowing (name string) (structure []UserResponse, err error) {
+	err = RestRequest(&structure, "/users/" + name + "/followers")
+	return
+}
+
+/* GetUserMessageCount returns the amount of messages a user has.
+ */
+func GetUserMessageCount (name string) (count uint64, err error) {
+	structure := CountResponse { }
+	err = RestRequest(&structure, "/users/" + name + "/messages/count")
+	count = structure.Count
 	return
 }

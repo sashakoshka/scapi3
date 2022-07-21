@@ -55,10 +55,9 @@ type NewsResponseItem struct {
 	Copy     string `json:"copy"`
 }
 
-/* ProjectsCountAllResponse contains the amount of projects uploaded to the
- * site.
+/* CountResponse contains a simple count.
  */
-type ProjectsCountAllResponse struct {
+type CountResponse struct {
 	Count uint64 `json:"count"`
 }
 
