@@ -1,4 +1,4 @@
-![I am so sorry for making this.](assets/new scratch logo.png)
+![I am so sorry for making this.](assets/new scratch logo.svg)
 
 # scapi3
 
