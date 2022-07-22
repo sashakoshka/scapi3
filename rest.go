@@ -512,3 +512,41 @@ func GetExploreStudios (
 		limit, offset, &structure)
 	return
 }
+
+/* GetSearchProjects returns search results for the projects tab.
+ */
+func GetSearchProjects (
+	query    string,
+	mode     string,
+	language string,
+	limit    int,
+	offset   int,
+) (
+	structure []ProjectResponse,
+	err error,
+) {
+	err = getSearchResults (
+		"/search/projects",
+		query, mode, language,
+		limit, offset, &structure)
+	return
+}
+
+/* GetSearchStudios returns search results for the studios tab.
+ */
+func GetSearchStudios (
+	query    string,
+	mode     string,
+	language string,
+	limit    int,
+	offset   int,
+) (
+	structure []StudioResponse,
+	err error,
+) {
+	err = getSearchResults (
+		"/search/studios",
+		query, mode, language,
+		limit, offset, &structure)
+	return
+}

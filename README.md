@@ -22,7 +22,7 @@ This is still in progress.
 - [ ] Cloud session set variable
 - [ ] Cloud session variable change event
 
-### Rest API
+### Rest API (Complete!)
 
 Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 
@@ -55,5 +55,5 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [X] API GET `/accounts/checkusername/<username>`
 - [X] API GET `/explore/projects?q=<query>&mode=<mode>&language=<language_code>`
 - [X] API GET `/explore/studios?q=<query>&mode=<mode>&language=<language_code>`
-- [ ] API GET `/search/projects?q=<query>&mode=<mode>&language=<language_code>`
-- [ ] API GET `/search/studios?q=<query>&mode=<mode>&language=<language_code>`
+- [X] API GET `/search/projects?q=<query>&mode=<mode>&language=<language_code>`
+- [X] API GET `/search/studios?q=<query>&mode=<mode>&language=<language_code>`
