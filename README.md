@@ -1,4 +1,4 @@
-![I am so sorry for making this.](assets/logo.svg)
+<img src="assets/logo.svg" alt="I am so sorry for making this." width="96"/>
 
 # scapi3
 
