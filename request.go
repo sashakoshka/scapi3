@@ -65,13 +65,13 @@ func (request Request) Send () (
 	if err != nil { return }
 
 	// set request headers
-	for key, value := range request.Headers {
-		httpRequest.Header.Set(key, value)
-	}
 	httpRequest.Header.Set("X-CSRFToken", "a")
 	httpRequest.Header.Set("Referer", "https://scratch.mit.edu")
         httpRequest.Header.Add("Cookie", "scratchcsrftoken=a; scratchlanguage=en;")
 	httpRequest.Header.Set("User-Agent", "")
+	for key, value := range request.Headers {
+		httpRequest.Header.Set(key, value)
+	}
 
 	// perform request
 	if request.Client == nil {
