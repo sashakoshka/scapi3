@@ -53,7 +53,7 @@ Following [this article](https://en.scratch-wiki.info/wiki/Scratch_API):
 - [X] API GET `/users/<username>/projects/<project_id>/comments/<comment_id>/replies`
 - [X] API GET `/users/<username>/studios/curate`
 - [X] API GET `/accounts/checkusername/<username>`
-- [ ] API GET `/explore/projects?q=<query>&mode=<mode>&language=<language_code>`
-- [ ] API GET `/explore/studios?q=<query>&mode=<mode>&language=<language_code>`
+- [X] API GET `/explore/projects?q=<query>&mode=<mode>&language=<language_code>`
+- [X] API GET `/explore/studios?q=<query>&mode=<mode>&language=<language_code>`
 - [ ] API GET `/search/projects?q=<query>&mode=<mode>&language=<language_code>`
 - [ ] API GET `/search/studios?q=<query>&mode=<mode>&language=<language_code>`

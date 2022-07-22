@@ -455,3 +455,60 @@ func GetAccountsCheckUsername (
 		0, 0)
 	return
 }
+
+func getSearchResults [T any] (
+	where     string,
+	query     string,
+	mode      string,
+	language  string,
+	limit     int,
+	offset    int,
+	structure *T,
+) (
+	err error,
+) {
+	queryString := ""
+	if query     != "" { queryString += "q="        + query    + "&" }
+	if mode      != "" { queryString += "mode="     + mode     + "&" }
+	if language  != "" { queryString += "language=" + language + "&" }
+	
+	return RestRequestWithQueryString(&structure, where, limit, 0, queryString)
+}
+
+/* GetExploreProjects returns explore results for the projects tab.
+ */
+func GetExploreProjects (
+	query    string,
+	mode     string,
+	language string,
+	limit    int,
+	offset   int,
+) (
+	structure []ProjectResponse,
+	err error,
+) {
+	err = getSearchResults (
+		"/explore/projects",
+		query, mode, language,
+		limit, offset, &structure)
+	return
+}
+
+/* GetExploreStudios returns explore results for the studios tab.
+ */
+func GetExploreStudios (
+	query    string,
+	mode     string,
+	language string,
+	limit    int,
+	offset   int,
+) (
+	structure []StudioResponse,
+	err error,
+) {
+	err = getSearchResults (
+		"/explore/studios",
+		query, mode, language,
+		limit, offset, &structure)
+	return
+}
