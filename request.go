@@ -4,6 +4,7 @@ import "io"
 import "bytes"
 import "net/http"
 import "io/ioutil"
+// import "net/http/httputil"
 
 type Method int
 
@@ -21,7 +22,7 @@ type Request struct {
 	Method		Method
 	Headers		map[string] string
 	Body		RequestBody
-	Client		*http.Client
+	SessionID	string
 }
 
 /* RequestBody represents a structure that can be marshalled into a byte
@@ -67,18 +68,21 @@ func (request Request) Send () (
 	// set request headers
 	httpRequest.Header.Set("X-CSRFToken", "a")
 	httpRequest.Header.Set("Referer", "https://scratch.mit.edu")
-        httpRequest.Header.Add("Cookie", "scratchcsrftoken=a; scratchlanguage=en;")
 	httpRequest.Header.Set("User-Agent", "")
 	for key, value := range request.Headers {
 		httpRequest.Header.Set(key, value)
 	}
+	cookies := "scratchcsrftoken=a; scratchlanguage=en;"
+	if request.SessionID != "" {
+		cookies += " scratchsessionsid=\"" + request.SessionID + "\";"
+	}
+        httpRequest.Header.Add("Cookie", cookies)
+
+	// dump, _ := httputil.DumpRequestOut(httpRequest, false)
+	// println(string(dump))
 
 	// perform request
-	if request.Client == nil {
-		response, err = http.DefaultClient.Do(httpRequest)
-	} else {
-		response, err = request.Client.Do(httpRequest)
-	}
+	response, err = http.DefaultClient.Do(httpRequest)
 	defer response.Body.Close()
 	
 	// read response body

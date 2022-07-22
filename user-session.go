@@ -4,7 +4,6 @@ import "fmt"
 import "strconv"
 import "net/http"
 import "encoding/json"
-import "net/http/cookiejar"
 
 /* UserSession represents a login session. It is used to access user-specific
  * parts of the API like cloud variables.
@@ -16,7 +15,7 @@ type UserSession struct {
 	password	string
 	id		int
 	token		string
-	client		http.Client
+	sessionID	string
 }
 
 /* CreateUserSession creates and loads a new user session with the specified
@@ -32,12 +31,6 @@ func CreateUserSession (
 	session = &UserSession {
 		username: username,
 		password: password,
-	}
-	
-	session.client.Jar, err = cookiejar.New(nil)
-	if err != nil {
-		err = fmt.Errorf("could not create cookie jar: %v", err)
-		return
 	}
 	
 	err = session.Login()
@@ -62,8 +55,6 @@ func (session *UserSession) Login () (err error) {
 			"X-Requested-With": "XMLHttpRequest",
 			"Content-Type": "application/json",
 		},
-
-		Client: &session.client,
 	}.Send()
 	
 	loginData, err := UnmarshalLoginStatusResponse(body)
@@ -84,8 +75,9 @@ func (session *UserSession) Login () (err error) {
 	session.valid  = false
 	session.token  = loginData.Token
 
-	// urlObj, _ := url.Parse("https://scratch.mit.edu")
-	// fmt.Println(session.client.Jar.Cookies(urlObj))
+	// parse session id cookie
+	// TODO: find a more robust way of doing this...
+	session.sessionID = response.Header.Get("set-cookie")[19:386]
 	return
 }
 
@@ -95,12 +87,18 @@ func (session *UserSession) Login () (err error) {
  */
 func (session *UserSession) Verify () (valid bool) {
 	if !session.loaded { return }
-	
-	// TODO: there is a high chance this doesn't work. Find out if it does
-	// work, and if it doesn't, create a better solution.
+
 	response, _, err := Request {
-		Client: &session.client,
+		Path:      "/session/",
+		SessionID: session.sessionID,
+		
+		Headers: map[string] string {
+			"X-Requested-With": "XMLHttpRequest",
+		},
 	}.Send()
+	// TODO: parse response from server and update session object with
+	// information from it
+	
 	valid = err == nil && response.StatusCode == http.StatusOK
 	session.valid = valid
 	return
@@ -164,7 +162,7 @@ func (session *UserSession) comment (
 	content string,
 ) (
 	err error,
-) {	
+) {
 	response, body, err := Request {
 		Hostname: "api.scratch.mit.edu",
 		Path:     "/proxy/comments/" + where + "/" + id,
@@ -182,7 +180,7 @@ func (session *UserSession) comment (
 			"Origin": "https://scratch.mit.edu",
 		},
 
-		Client: &session.client,
+		SessionID: session.sessionID,
 	}.Send()
 
 	if err != nil {
