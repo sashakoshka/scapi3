@@ -85,6 +85,9 @@ func (request Request) Send () (
 	response, err = http.DefaultClient.Do(httpRequest)
 	defer response.Body.Close()
 	
+	// dump, _ = httputil.DumpResponse(response, false)
+	// println(string(dump))
+	
 	// read response body
 	body, err = ioutil.ReadAll(response.Body)
 	if err != nil { return }

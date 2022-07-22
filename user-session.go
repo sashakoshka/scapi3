@@ -175,9 +175,13 @@ func (session *UserSession) comment (
 		},
 		
 		Headers: map[string] string {
-			"X-Requested-With": "XMLHttpRequest",
+			// "X-Requested-With": "XMLHttpRequest",
 			"Content-Type": "application/json",
 			"Origin": "https://scratch.mit.edu",
+			
+			"Sec-Fetch-Dest": "empty",
+			"Sec-Fetch-Mode": "cors",
+			"Sec-Fetch-Site": "same-site",
 		},
 
 		SessionID: session.sessionID,
