@@ -10,19 +10,24 @@ stuff). Now featuring even less callback hell or whatever.
 
 This is still in progress.
 
+# What's not working
+
+- Commenting returns 401 unauthorized
+- Cloud sessions are created successfully, but the server seems to shut down the
+  websocket connection right after the handshake is sent.
+
 ## API coverage
 
 ### User sessions
 
 - [X] User session login
 - [X] User session verify
-- [ ] User session projects
 - [X] User session comment (Broken)
-- [ ] Cloud session creation
-- [ ] Cloud session close
-- [ ] Cloud session get variable
+- [X] Cloud session creation (Broken)
+- [X] Cloud session close
+- [X] Cloud session get variable
 - [ ] Cloud session set variable
-- [ ] Cloud session variable change event
+- [X] Cloud session variable change event (Broken)
 
 ### Rest API (Complete!)
 
