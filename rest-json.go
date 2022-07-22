@@ -228,3 +228,11 @@ type UserResponse struct {
 		Country string `json:"country"`
 	} `json:"profile"`
 }
+
+/* AccountsCheckUsernameResponse holds information about the availibility of a
+ * username.
+ */
+type AccountsCheckUsernameResponse struct {
+	Username string `json:"username"`
+	Msg      string `json:"msg"`
+}
