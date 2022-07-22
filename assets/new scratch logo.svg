@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 96 96" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="147.669" id="Filter" width="154.928" x="-31.6255" y="-7.01373">
+<feDropShadow dx="0.0211782" dy="5.00383" flood-color="#010f10" flood-opacity="0.113624" in="SourceGraphic" result="Shadow" stdDeviation="3.68217"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="132.941" id="Filter_2" width="140.199" x="-24.2823" y="-4.65322">
+<feDropShadow dx="0.0584983" dy="13.8216" flood-color="#010f10" flood-opacity="0.29207" in="SourceGraphic" result="Shadow" stdDeviation="18.3624"/>
+</filter>
+</defs>
+<clipPath id="ArtboardFrame">
+<rect height="96" width="96" x="0" y="0"/>
+</clipPath>
+<g clip-path="url(#ArtboardFrame)" id="Layer-1">
+<g filter="url(#Filter)">
+<path d="M46.35 26.95C44.05 26.55 41.65 26.35 38.85 26.55C34.15 26.75 29.65 28.45 29.65 28.45L17.55 20.55C17.15 20.35 16.65 20.65 16.75 21.05L18.85 38.95C19.45 38.15 8.25 51.75 15.35 63.15C22.45 74.55 37.55 79.65 56.35 75.95C75.15 72.25 79.55 61.45 78.35 55.75C77.15 50.05 70.05 47.95 70.05 47.95C70.05 47.95 69.95 43.45 66.75 37.95C64.85 34.65 58.45 29.95 58.45 29.95L55.85 19.25C55.75 18.85 55.25 18.75 54.95 18.95L46.35 26.95Z" fill="#6ad7e5" fill-rule="evenodd" filter="url(#Filter_2)" stroke="#000000" stroke-linecap="butt" stroke-linejoin="miter" stroke-width="1.2"/>
+<path d="M69.75 48.35C69.75 48.35 76.65 50.15 77.85 55.85C79.05 61.55 74.25 71.85 55.65 75.45C31.45 80.45 19.95 66.05 26.65 55.45C33.35 44.75 44.85 53.85 53.25 53.25C60.45 52.75 61.25 46.45 69.75 48.35Z" fill="#f6d2a2" fill-rule="evenodd" opacity="1" stroke="none"/>
+<path d="M38.25 59.05C38.25 58.65 38.65 58.35 39.05 58.45C40.95 59.15 46.35 60.75 52.35 61.15C57.75 61.45 60.95 61.15 62.45 60.85C62.95 60.75 63.35 61.25 63.15 61.75C62.25 64.45 58.45 71.95 47.95 71.35C38.85 70.35 37.95 63.95 38.25 59.05Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M76.25 53.35C76.25 53.35 83.45 53.25 88.15 49.45" fill="none" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M76.65 59.25C76.65 59.25 80.55 61.15 86.85 60.65" fill="none" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M52.85 50.65C54.95 50.65 57.15 50.85 57.25 51.55C57.35 52.95 55.85 55.75 54.25 55.85C52.45 56.05 48.25 53.55 48.25 51.95C48.15 50.75 50.85 50.65 52.85 50.65Z" fill="#000000" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M7.85 49.15C7.85 49.15 16.45 51.95 19.95 55.05" fill="none" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M8.55 59.15C8.55 59.15 15.95 60.25 20.25 58.55" fill="none" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M64.65 38.95C67.55 43.45 67.65 48.55 64.85 50.35C62.05 52.15 57.45 50.05 54.45 45.55C51.55 41.05 51.45 35.95 54.25 34.15C57.05 32.25 61.75 34.45 64.65 38.95Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M64.25 44.65C64.25 45.75 63.45 46.65 62.45 46.65C61.45 46.65 60.65 45.75 60.65 44.65C60.65 43.55 61.45 42.65 62.45 42.65C63.45 42.65 64.25 43.55 64.25 44.65" fill="#000000" fill-rule="evenodd" opacity="1" stroke="none"/>
+<path d="M39.85 41.75C42.85 46.15 42.65 51.55 39.95 53.45C36.65 55.35 32.25 53.95 29.25 49.55C26.15 45.15 25.95 39.45 29.05 37.25C32.15 34.95 36.85 37.35 39.85 41.75Z" fill="#ffffff" fill-rule="evenodd" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"/>
+<path d="M39.25 47.55C39.25 48.65 38.45 49.55 37.45 49.55C36.45 49.55 35.65 48.65 35.65 47.55C35.65 46.45 36.45 45.55 37.45 45.55C38.45 45.65 39.25 46.45 39.25 47.55" fill="#000000" fill-rule="evenodd" opacity="1" stroke="none"/>
+</g>
+</g>
+</svg>

@@ -1,3 +1,5 @@
+![I am so sorry for making this.](assets/new scratch logo.png)
+
 # scapi3
 
 The Scratch 3 API, implemented in Golang.
