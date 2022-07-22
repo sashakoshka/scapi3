@@ -47,9 +47,9 @@ func RestRequestWithQueryString [T any](
 	if err != nil { return }
 	if response.StatusCode != http.StatusOK {
 		err = fmt.Errorf (
-			"cannot get %s (%i)",
+			"cannot get %s (%s)",
 			path,
-			response.StatusCode)
+			response.Status)
 		return
 	}
 	

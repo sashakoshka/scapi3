@@ -83,6 +83,7 @@ func (request Request) Send () (
 
 	// perform request
 	response, err = http.DefaultClient.Do(httpRequest)
+	if err != nil { return }
 	defer response.Body.Close()
 	
 	// dump, _ = httputil.DumpResponse(response, false)
