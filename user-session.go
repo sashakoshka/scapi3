@@ -104,12 +104,16 @@ func (session *UserSession) Verify () (valid bool) {
 	valid = err == nil && response.StatusCode == http.StatusOK
 	session.valid = valid
 	return
-} 
+}
 
+/* CommentOnProject writes a comment on a project. If parent is nonzero, this
+ * comment will be in reply to the comment with that ID. If tagging is not
+ * blank, this comment will "@" the user with that ID.
+ */
 func (session *UserSession) CommentOnProject (
 	project uint64,
 	parent  uint64,
-	tagging uint64,
+	tagging string,
 	content string,
 ) (
 	err error,
@@ -120,11 +124,43 @@ func (session *UserSession) CommentOnProject (
 		"project", parent, tagging, content)
 }
 
+/* CommentOnUser writes a comment on a project. If parent is nonzero, this
+ * comment will be in reply to the comment with that ID. If tagging is not
+ * blank, this comment will "@" the user with that ID.
+ */
+func (session *UserSession) CommentOnUser (
+	user    string,
+	parent  uint64,
+	tagging string,
+	content string,
+) (
+	err error,
+) {
+	if !session.loaded { return }
+	return session.comment(user, "user", parent, tagging, content)
+}
+
+/* CommentOnStudio writes a comment on a project. If parent is nonzero, this
+ * comment will be in reply to the comment with that ID. If tagging is not
+ * blank, this comment will "@" the user with that ID.
+ */
+func (session *UserSession) CommentOnStudio (
+	studio  string,
+	parent  uint64,
+	tagging string,
+	content string,
+) (
+	err error,
+) {
+	if !session.loaded { return }
+	return session.comment(studio, "gallery", parent, tagging, content)
+}
+
 func (session *UserSession) comment (
 	id      string,
 	where   string,
 	parent  uint64,
-	tagging uint64,
+	tagging string,
 	content string,
 ) (
 	err error,
@@ -135,9 +171,9 @@ func (session *UserSession) comment (
 		Method:   MethodPost,
 
 		Body: CommentRequest {
-			Content:     content,
-			ParentID:    parent,
-			CommenteeID: tagging,
+			Content:   content,
+			ParentID:  parent,
+			Commentee: tagging,
 		},
 		
 		Headers: map[string] string {

@@ -20,9 +20,9 @@ func (structure LoginRequest) Marshal () (data []byte) {
 /* CommentRequest represents a comment request.
  */
 type CommentRequest struct {
-	Content     string
-	ParentID    uint64
-	CommenteeID uint64
+	Content   string
+	ParentID  uint64
+	Commentee string
 }
 
 /* Marshal converts the comment request body into a JSON encoded byte slice.
@@ -31,15 +31,11 @@ func (structure CommentRequest) Marshal () (data []byte) {
 	realStructure := map[string] any {
 		"content":      structure.Content,
 		"parent_id":    structure.ParentID,
-		"commentee_id": structure.CommenteeID,
+		"commentee_id": structure.Commentee,
 	}
 
 	if structure.ParentID == 0 {
 		realStructure["parent_id"] = ""
-	}
-
-	if structure.CommenteeID == 0 {
-		realStructure["commentee_id"] = ""
 	}
 
 	data, _ = json.Marshal(realStructure)

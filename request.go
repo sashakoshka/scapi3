@@ -31,7 +31,6 @@ type RequestBody interface {
 	Marshal () (data []byte)
 }
 
-
 /* Send sends the request to the Scratch servers, and returns the response.
  */
 func (request Request) Send () (
